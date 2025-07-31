@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+  const correctPassword = '711'; // change this
+  const userInput = prompt("Enter password:");
+  if (userInput !== correctPassword) {
+    document.body.innerHTML = '';
+    alert("Incorrect password.");
+  }
+  </script>
   <meta charset="UTF-8">
   <title>Maxwell Hill</title>
   <style>
