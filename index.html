@@ -1,31 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-  const correctPassword = '711'; // change this
-  const userInput = prompt("Enter password:");
-  if (userInput !== correctPassword) {
-    document.body.innerHTML = '';
-    alert("Incorrect password.");
-  }
-  </script>
   <meta charset="UTF-8">
   <title>Maxwell Hill</title>
   <style>
-    body {
+    * { box-sizing: border-box; }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: sans-serif;
-      max-width: 600px;
-      margin: 5em auto;
-      padding: 0 1em;
-      line-height: 1.6;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    a { color: blue; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    #auth, #site { display: none; width: 100%; max-width: 600px; }
+    #auth.show, #site.show { display: block; }
+    input {
+      width: 100%;
+      padding: 0.75em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 1em;
+      padding: 0.75em;
+      width: 100%;
+      background: black;
+      color: white;
+      font-size: 1em;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>Maxwell Hill</h1>
-  <p>Founder of G64 Systems. I build AI infrastructure.</p>
-  <p><a href="https://twitter.com/username">Twitter</a> | <a href="https://github.com/username">GitHub</a></p>
+  <div id="auth" class="show">
+    <form onsubmit="return checkPassword()">
+      <input type="password" id="pwd" placeholder="Enter password" autofocus required />
+      <button type="submit">Enter</button>
+    </form>
+  </div>
+
+  <div id="site">
+    <h1>Maxwell Hill</h1>
+    <p>Founder of G64 Systems. I build AI infrastructure.</p>
+    <p><a href="mailto:max@xyz.com">Email</a> | <a href="https://github.com/username">GitHub</a></p>
+  </div>
+
+  <script>
+    const PASSWORD = 'letmein'; // change this
+
+    function checkPassword() {
+      const input = document.getElementById('pwd').value;
+      if (input === PASSWORD) {
+        document.getElementById('auth').classList.remove('show');
+        document.getElementById('site').classList.add('show');
+      } else {
+        alert("Incorrect password.");
+      }
+      return false;
+    }
+  </script>
 </body>
 </html>
