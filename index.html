@@ -39,10 +39,9 @@
 <body>
   <div id="site">
     <h1>Maxwell Hill</h1>
-    <p>I'm <span id="age">calculating...</span> years old</p>
-    <p>I'll be a father in <span id="countdown">calculating...</span> days</p>
+    <p>I'm <span id="age">calculating...</span> years old.<br>I'll be a father in <span id="countdown">calculating...</span> days</p>
+    <h2>Work</h2>
     <p>I've explored and deeply engaged with several industries. I now primarily focus on building AI infrastructure at G64 Systems.</p>
-    <h2>Timeline</h2>
     <p><strong>Founded G64 Systems</strong><br>
     An AI infrastructure and deployment company specializing in large language models (LLMs). Our mission at G64 is to identify the highest-impact areas for frontier AI and deliver tailored, effective systems to businesses.</p>
     <p><strong>Founded M2 Media</strong><br>
@@ -65,12 +64,12 @@
       // Age counter
       const ageInMs = now - birthDate;
       const ageInYears = ageInMs / (365.25 * 24 * 60 * 60 * 1000);
-      document.getElementById('age').textContent = ageInYears.toFixed(5);
+      document.getElementById('age').textContent = ageInYears.toFixed(9);
       
       // Countdown timer
       const timeUntilMs = targetDate - now;
       const daysUntil = timeUntilMs / (24 * 60 * 60 * 1000);
-      document.getElementById('countdown').textContent = daysUntil.toFixed(5);
+      document.getElementById('countdown').textContent = daysUntil.toFixed(7);
     }
     
     setInterval(updateTimers, 50);
