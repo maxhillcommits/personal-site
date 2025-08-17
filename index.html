@@ -75,6 +75,18 @@
     #countdown strong {
       color: #2378da;
     }
+    #age {
+      font-size: 1.15em;
+      margin-bottom: 1.8em;
+      background: #e7f0fc;
+      border-radius: 8px;
+      text-align: center;
+      padding: 0.5em;
+    }
+    #age span {
+      font-weight: bold;
+      color: #0056b8;
+    }
   </style>
 </head>
 <body>
@@ -86,6 +98,16 @@
   </div>
   <div id="site">
     <h1>Maxwell Hill</h1>
+    
+    <!-- Age Tracker Display -->
+    <div id="age">
+      You are <span id="age_years"></span> years, 
+      <span id="age_days"></span> days, 
+      <span id="age_hours"></span> hours, 
+      <span id="age_minutes"></span> minutes, 
+      <span id="age_seconds"></span> seconds old.
+    </div>
+    
     <!-- Countdown Timer Display -->
     <div id="countdown">
       <span id="cd_days"></span> days 
@@ -93,6 +115,7 @@
       <span id="cd_minutes"></span> minutes 
       <span id="cd_seconds"></span> seconds
     </div>
+    
     <p>I'm 23 years old, a proud father, and currently living in Minnesota. I've explored and deeply engaged with several industries, including NFL media, social media advertising, crypto (specefically blockchains and digital assets).</p>
     <p>I now primarily focus on building AI infrastructure at G64 Systems.</p>
     <h2>Timeline</h2>
@@ -123,7 +146,7 @@
 
     // --------- Countdown Timer Script ---------
     // Change this date to your target countdown datetime!
-    const targetDate = new Date("January 21, 2025 23:59:59").getTime();
+    const targetDate = new Date("January 21, 2026 23:59:59").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
@@ -148,13 +171,48 @@
       setTimeout(updateCountdown, 10); // Update every 10ms for high precision
     }
 
-    // Start timer once unlocked
+    // --------- Live Age Tracker ---------
+    const birthDate = new Date("July 11, 2002 00:00:00").getTime();
+
+    function updateAge() {
+      const now = new Date().getTime();
+      let elapsed = now - birthDate;
+
+      // Calculate years (accounting for leap years)
+      const msPerYear = 365.2425 * 24 * 60 * 60 * 1000;
+      const years = Math.floor(elapsed / msPerYear);
+      elapsed -= years * msPerYear;
+
+      // Calculate days, hours, minutes, seconds
+      const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
+      elapsed -= days * 1000 * 60 * 60 * 24;
+
+      const hours = Math.floor(elapsed / (1000 * 60 * 60));
+      elapsed -= hours * 1000 * 60 * 60;
+
+      const minutes = Math.floor(elapsed / (1000 * 60));
+      elapsed -= minutes * 1000 * 60;
+
+      const totalSeconds = elapsed / 1000;
+      const seconds = totalSeconds.toFixed(10);
+
+      document.getElementById("age_years").innerText = years;
+      document.getElementById("age_days").innerText = days;
+      document.getElementById("age_hours").innerText = hours;
+      document.getElementById("age_minutes").innerText = minutes;
+      document.getElementById("age_seconds").innerText = seconds;
+
+      setTimeout(updateAge, 10); // update every 10ms
+    }
+
+    // Start timers once unlocked
     document.addEventListener("DOMContentLoaded", function() {
-      // Only start countdown when user has entered password ("site" is shown)
+      // Only start countdown/age when user has entered password ("site" is shown)
       const siteDiv = document.getElementById("site");
       const observer = new MutationObserver(function() {
         if(siteDiv.classList.contains('show')) {
           updateCountdown();
+          updateAge();
           observer.disconnect();
         }
       });
