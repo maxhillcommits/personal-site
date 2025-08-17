@@ -13,7 +13,6 @@
       background: white;
       color: black;
     }
-
     #auth, #site {
       display: none;
     }
@@ -44,7 +43,6 @@
       border: none;
       cursor: pointer;
     }
-
     #site.show {
       display: block;
       max-width: 640px;
@@ -53,7 +51,6 @@
       line-height: 1.6;
       font-size: 1.05em;
     }
-
     h1, h2 {
       margin-top: 1.5em;
     }
@@ -67,6 +64,17 @@
     a:hover {
       text-decoration: underline;
     }
+    #countdown {
+      font-size: 1.25em;
+      margin: 1.5em 0;
+      padding: 0.5em;
+      background: #f7f7f7;
+      border-radius: 8px;
+      text-align: center;
+    }
+    #countdown strong {
+      color: #2378da;
+    }
   </style>
 </head>
 <body>
@@ -76,35 +84,31 @@
       <button type="submit">Enter</button>
     </form>
   </div>
-
   <div id="site">
     <h1>Maxwell Hill</h1>
-
+    <!-- Countdown Timer Display -->
+    <div id="countdown">
+      <span id="cd_days"></span> days 
+      <span id="cd_hours"></span> hours 
+      <span id="cd_minutes"></span> minutes 
+      <span id="cd_seconds"></span> seconds
+    </div>
     <p>I'm 23 years old, a proud father, and currently living in Minnesota. I've explored and deeply engaged with several industries, including NFL media, social media advertising, crypto (specefically blockchains and digital assets).</p>
-
     <p>I now primarily focus on building AI infrastructure at G64 Systems.</p>
-
     <h2>Timeline</h2>
-
     <p><strong>(2025-Present) Founded G64 Systems</strong><br>
     An AI infrastructure and deployment company specializing in large language models (LLMs). Our mission at G64 is to identify the highest-impact areas for frontier AI and deliver tailored, effective systems to businesses.</p>
-
     <p><strong>(2022-Present) Founded M2 Media</strong><br>
     An advertising firm connecting major sports betting platforms and daily fantasy sports (DFS) companies with influential social media brands and creators. We optimized content strategies to boost client ROI, paired brands with ideal creators, and managed partnerships end-to-end.</p>
-
     <p><strong>Co-founded FLXN Labs (2021-2022)</strong><br>
     Co-founded and led FLXN Labs, where we developed the concept of tokenized access to viral game contests built for social media with the goal of creating a flywheel effect that leads to rapid growth and shareholder value for initial token investors. Exited in 2022 after generating approximately 50 ETH revenue ($250,000 USD).</p>
-
     <p><strong>(2021-2022) Studied MIS at ISU</strong><br>
     Studied management information systems (MIS) at Iowa State University (ISU) but chose to leave early to pursue business ventures.</p>
-
     <p><strong>(2018-2025) Founded VI Media</strong><br>
     Founded a Vikings-focused media brand, publishing over 10,000 pieces of content, achieving over 10 million engagements and 250 million impressions. Our media was featured on major networks such as NFL Network, ESPN, Bleacher Report, and FanDuel TV. I was granted exclusive NFL media access to premier events including the Super Bowl, NFL Draft, and NFL Scouting Combine.</p>
   </div>
-
   <script>
     const PASSWORD = '711'; // ← change this
-
     function checkPassword() {
       const input = document.getElementById('pwd').value;
       if (input === PASSWORD) {
@@ -116,6 +120,47 @@
       }
       return false;
     }
+
+    // --------- Countdown Timer Script ---------
+    // Change this date to your target countdown datetime!
+    const targetDate = new Date("January 21, 2025 23:59:59").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        document.getElementById("countdown").innerHTML = "Countdown Complete!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const totalSeconds = distance / 1000;
+      const seconds = (totalSeconds % 60).toFixed(10);
+
+      document.getElementById("cd_days").innerText = days;
+      document.getElementById("cd_hours").innerText = hours;
+      document.getElementById("cd_minutes").innerText = minutes;
+      document.getElementById("cd_seconds").innerText = seconds;
+
+      setTimeout(updateCountdown, 10); // Update every 10ms for high precision
+    }
+
+    // Start timer once unlocked
+    document.addEventListener("DOMContentLoaded", function() {
+      // Only start countdown when user has entered password ("site" is shown)
+      const siteDiv = document.getElementById("site");
+      const observer = new MutationObserver(function() {
+        if(siteDiv.classList.contains('show')) {
+          updateCountdown();
+          observer.disconnect();
+        }
+      });
+      observer.observe(siteDiv, { attributes: true });
+    });
+    // ------------------------------------------
   </script>
 </body>
 </html>
