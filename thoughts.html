@@ -31,6 +31,8 @@
     
 <p>Reminders:</p>
 <ul>
+  	<li id="yearsTo40"></li>
+  	<li id="booksLeft"></li>
     <li>Remember last month? That was 0.1% of your life ago.</li>
     <li>Iteration speed is a superpower.</li>
     <li>Treat mistakes as debugging info from the universe. If you’re wrong, admit it fast. It’s about maximizing the rate at which you learn.</li>
@@ -39,6 +41,37 @@
   <br>
   <p><a href="index.html">Return to homepage</a></p>
   </div>
+
+<script>
+  const birthDate = new Date(2002, 6, 11); // July 11, 2002 (0-based month)
+  const today = new Date();
+
+  function fullYearsBetween(from, to) {
+    let years = to.getFullYear() - from.getFullYear();
+    if (
+      to.getMonth() < from.getMonth() ||
+      (to.getMonth() === from.getMonth() && to.getDate() < from.getDate())
+    ) {
+      years--;
+    }
+    return years;
+  }
+
+  // Years left until 40
+  const dateAt40 = new Date(2042, 7, 11);
+  const yearsTo40 = Math.max(0, fullYearsBetween(today, dateAt40));
+
+  // Books left until 80, reading 6/year
+  const dateAt80 = new Date(2082, 7, 11);
+  const yearsLeftTo80 = Math.max(0, fullYearsBetween(today, dateAt80));
+  const booksLeft = yearsLeftTo80 * 6;
+
+  document.getElementById("yearsTo40").textContent =
+    `I only have ${yearsTo40} summers left until I'm 40`;
+
+  document.getElementById("booksLeft").textContent =
+    `I will only read ${booksLeft} more books if I read 6 per year.`;
+</script>
   
 </body>
 </html>
