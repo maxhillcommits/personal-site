@@ -35,30 +35,42 @@
 <body>
   <div id="site">
     <h1>Maxwell Hill</h1>
+
+	<p><a href="about.html">[About]</a> <a href="archive.html">[Archive]</a></p>
     
-<p>Reminders:</p>
+    <p>About:</p>
+  <ul>
+	<li>Proud husband and father</li>
+    <li><span id="age">calculating...</span> years old</li>
+  </ul>
+
+<p>Work:</p>
 <ul>
-	<li>The average lifespan is  only ~640,000 hours.</li>
-    <li>Remember last month? That was 0.1% of your life ago.</li>
+	<li>I now help sportsbooks, fantasy sites, and prediction markets with advertising</li>
+	<li>Co-founded an ERC-721 token company focused on content flywheels</li>
+	<li>Founded what is now the #1 source for Vikings content on the internet</li>
 </ul>
 
-<p>Life philosophy:</p>
-<ul>
-<li>Your life isn't yours if you always care what others think.</li>
-</ul>
-
-<p>Work philosophy:</p>
-<ul>
-<li>Iteration speed is a superpower.</li>
-<li>The laws of physics are the only limit.</li>
-<li>Capitalism rewards agency far more than it does intelligence.</li>
-
-</ul>
-
-  <br>
-  <p><a href="index.html">Return to homepage</a></p>
+	  <br>
+	  
   </div>
-
   
+  <script>
+    const birthDate = new Date('2002-07-11');
+    const targetDate = new Date('2025-12-01');
+    
+    function updateTimers() {
+      const now = new Date();
+      
+      // Age counter
+      const ageInMs = now - birthDate;
+      const ageInYears = ageInMs / (365.25 * 24 * 60 * 60 * 1000);
+      document.getElementById('age').textContent = ageInYears.toFixed(8);
+      
+    }
+    
+    setInterval(updateTimers, 50);
+    updateTimers();
+  </script>
 </body>
 </html>
